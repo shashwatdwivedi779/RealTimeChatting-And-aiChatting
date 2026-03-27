@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
             return next();
         }
     try{
-    const decoded = jwt.verify(token, "KAISE_HO_BHAII_SAB_THIK_HAI_NA");
+    const decoded = jwt.verify(token, process.env.KEY);
     req.userId = decoded.userId;
     req.username = decoded.username;
     req.email = decoded.email;
