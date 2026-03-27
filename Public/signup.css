@@ -1,0 +1,109 @@
+:root {
+    --primary-color: #6c63ff;
+    --bg-gradient: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    --glass-bg: rgba(255, 255, 255, 0.9);
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-gradient);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 40px 20px; /* Padding for mobile scrolling */
+    box-sizing: border-box;
+}
+
+.signup-card {
+    background: var(--glass-bg);
+    padding: 35px 30px;
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.3);
+}
+
+.signup-card h2 {
+    margin-bottom: 5px;
+    font-weight: 700;
+    color: #333;
+    font-size: 26px;
+}
+
+.signup-card p.subtitle {
+    color: #777;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+form { text-align: left; }
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #555;
+    margin-left: 5px;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #eee;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 14px;
+    transition: 0.3s;
+    box-sizing: border-box;
+    outline: none;
+    background: white;
+}
+
+input:focus, select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 10px rgba(108, 99, 255, 0.1);
+}
+
+/* Signup Button */
+.signup-btn {
+    width: 100%;
+    padding: 14px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 10px;
+    box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
+}
+
+.signup-btn:hover {
+    background: #564dff;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(108, 99, 255, 0.4);
+}
+
+.footer-text {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.footer-text a {
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 600;
+}

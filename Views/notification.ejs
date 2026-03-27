@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Notifications</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<link rel="stylesheet" href="/notification.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="/" class="back-btn">
+        <span class="material-icons">arrow_back</span> Back
+    </a>
+
+    <h1>🔔 Friend Requests</h1>
+
+    <% if (currentUser && currentUser.FriendRequest.length > 0) { %>
+
+        <% currentUser.FriendRequest.forEach(user => { %>
+
+        <div class="request-card">
+
+            <div class="user-info">
+
+                 <img class="avatar"
+  src="<%= user.ProductImage ? '/uploads/' + user.ProductImage : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' %>" 
+  alt="Profile"
+>
+
+                <div>
+                    <div class="username"><%= user.username %></div>
+                    <div class="subtext">wants to connect</div>
+                </div>
+
+            </div>
+
+            <div class="actions">
+
+                <form action="/accept" method="POST">
+                    <input type="hidden" name="userId" value="<%= user._id %>">
+                    <button class="accept" type="submit">Accept</button>
+                </form>
+
+                <form action="/reject" method="POST">
+                    <input type="hidden" name="userId" value="<%= user._id %>">
+                    <button class="reject" type="submit">Reject</button>
+                </form>
+
+            </div>
+
+        </div>
+
+        <% }) %>
+
+    <% } else { %>
+
+        <div class="empty">
+            <span class="material-icons">notifications_off</span>
+            <p>No Friend Requests</p>
+        </div>
+
+    <% } %>
+
+</div>
+
+</body>
+</html>

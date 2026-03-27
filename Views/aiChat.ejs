@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Chat</title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/aiChat.css">
+
+</head>
+<body>
+
+    <div class="chatbox">
+        <div class="Profile_Header">
+            <div class="back-btn" onclick="history.back()">⬅</div>
+            <div class="ai-avatar">
+                <span class="material-icons">smart_toy</span>
+            </div>
+
+            <div class="header-text">
+                <h3>MySocial AI</h3>
+                <p>Your smart assistant is online</p>
+            </div>
+        </div>
+
+        <div id="chatMessages">
+            <div class="welcome-card">
+                <h2>Welcome to MySocial AI</h2>
+                <p>Ask anything, get instant replies, and enjoy a smooth AI chat experience in a clean blue-creamy theme.</p>
+            </div>
+        </div>
+
+        <div class="chat-input-area">
+            <form id="aiForm">
+                <input type="text" id="questionInput" placeholder="Type your message here..." required>
+                <button type="submit">
+                    <span class="material-icons">send</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io();
+        const userId = "<%= user._id %>";
+
+        socket.emit("AI_room", { senderId: userId });
+
+        const form = document.getElementById("aiForm");
+        const input = document.getElementById("questionInput");
+        const chatMessages = document.getElementById("chatMessages");
+
+        function addMessage(type, sender, text) {
+            const row = document.createElement("div");
+            row.className = `message-row ${type}`;
+
+            const bubble = document.createElement("div");
+            bubble.className = `message ${type}`;
+            bubble.innerHTML = `
+                <span class="sender-label">${sender}</span>
+                ${text}
+            `;
+
+            row.appendChild(bubble);
+            chatMessages.appendChild(row);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        form.addEventListener("submit", (e) => {
+            e.preventDefault();
+
+            const text = input.value.trim();
+            if (!text) return;
+
+            addMessage("user", "You", text);
+
+            socket.emit("ai_message", {
+                senderId: userId,
+                text: text
+            });
+
+            input.value = "";
+        });
+
+        socket.on("ai_response", (data) => {
+            addMessage("ai", "MySocial AI", data.text);
+        });
+    </script>
+
+</body>
+</html>

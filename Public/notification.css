@@ -1,0 +1,162 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+
+    background: linear-gradient(135deg, #fdfbfb, #ebedee, #dbeafe);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 20px;
+}
+
+/* CONTAINER */
+.container {
+    width: 100%;
+    max-width: 500px;
+}
+
+/* BACK */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    color: #2563eb;
+    text-decoration: none;
+
+    margin-bottom: 10px;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    transform: translateX(-5px);
+}
+
+/* HEADING */
+h1 {
+    margin-bottom: 20px;
+
+    background: linear-gradient(to right, #2563eb, #60a5fa);
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    color: transparent;
+}
+
+/* CARD */
+.request-card {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(12px);
+
+    border-radius: 16px;
+
+    padding: 15px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 15px;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+
+    transition: 0.3s;
+}
+
+.request-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+}
+
+/* USER INFO */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* AVATAR */
+.avatar {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: bold;
+}
+
+/* TEXT */
+.username {
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.subtext {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* ACTIONS */
+.actions {
+    display: flex;
+    gap: 8px;
+}
+
+/* BUTTONS */
+button {
+    border: none;
+    padding: 8px 14px;
+    border-radius: 12px;
+
+    cursor: pointer;
+    font-weight: 500;
+
+    transition: 0.3s;
+}
+
+/* ACCEPT */
+.accept {
+    background: linear-gradient(to right, #22c55e, #4ade80);
+    color: white;
+}
+
+.accept:hover {
+    transform: scale(1.05);
+}
+
+/* REJECT */
+.reject {
+    background: rgba(255,0,0,0.05);
+    color: #ef4444;
+}
+
+.reject:hover {
+    background: #ef4444;
+    color: white;
+}
+
+/* EMPTY */
+.empty {
+    text-align: center;
+    margin-top: 50px;
+    color: #9ca3af;
+}
+
+.empty span {
+    font-size: 40px;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet" href="/changepass.css">
+
+<title>Settings</title>
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="/profile" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back
+    </a>
+
+    <div class="card">
+
+    <% if(changepass){ %>
+
+        <h1>🔒 Change Password</h1>
+        <%- include('errors') %>
+
+        <form action="/changepass" method="POST">
+
+            <label>New Password</label>
+            <div class="input-group">
+                <i class="fa-solid fa-lock"></i>
+                <input type="password" name="password" placeholder="Enter new password" required>
+            </div>
+
+            <label>Confirm Password</label>
+            <div class="input-group">
+                <i class="fa-solid fa-check-circle"></i>
+                <input type="password" name="confirmPassword" placeholder="Confirm password" required>
+            </div>
+
+            <button type="submit">Update Password</button>
+
+        </form>
+
+    <% } else { %>
+
+        <h1>👤 Change Username</h1>
+        <%- include('errors') %>
+
+        <form action="/changeuser" method="POST">
+
+            <label>New Username</label>
+
+            <div class="input-group">
+                <i class="fa-solid fa-user"></i>
+                <input type="text" name="username" placeholder="Enter new username" required>
+            </div>
+
+            <button type="submit">Update Username</button>
+
+        </form>
+
+    <% } %>
+
+    </div>
+
+</div>
+
+</body>
+</html>

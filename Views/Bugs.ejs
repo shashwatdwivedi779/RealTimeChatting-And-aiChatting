@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Report Bug</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet" href="/reportbug.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <a href="/profile" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back
+    </a>
+
+    <div class="card">
+
+        <h1>🐞 Report a Bug</h1>
+
+        <form action="/reportbug" method="POST">
+
+            <label>Describe your issue</label>
+
+            <div class="input-group textarea">
+                <i class="fa-solid fa-pen"></i>
+                <textarea name="Bugs" placeholder="Explain the problem clearly..." required></textarea>
+            </div>
+
+            <button type="submit">
+                <i class="fa-solid fa-paper-plane"></i> Submit Report
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

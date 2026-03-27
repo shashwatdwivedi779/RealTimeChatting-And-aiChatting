@@ -1,0 +1,153 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+
+    /* SAME creamy theme */
+    background: linear-gradient(135deg, #fdfbfb, #ebedee, #dbeafe);
+
+    padding: 20px;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+    text-align: center;
+
+    font-size: 22px;
+    font-weight: 600;
+
+    margin-bottom: 15px;
+
+    background: linear-gradient(to right, #2563eb, #60a5fa);
+    background-clip: text;
+    -webkit-background-clip: text;
+
+    color: transparent;
+}
+
+/* BACK BUTTON */
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    text-decoration: none;
+    color: #2563eb;
+
+    margin-bottom: 15px;
+
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    transform: translateX(-5px);
+}
+
+/* ================= CONTAINER ================= */
+.container {
+    max-width: 500px;
+    margin: auto;
+}
+
+/* ================= FRIEND ITEM ================= */
+.friend-item {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(12px);
+
+    border-radius: 16px;
+
+    padding: 12px 15px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 12px;
+
+    text-decoration: none;
+    color: #1f2937;
+
+    position: relative;
+
+    transition: 0.3s;
+
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.friend-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+}
+
+/* AVATAR */
+.avatar {
+    width: 45px;
+    height: 45px;
+
+    border-radius: 50%;
+
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    font-weight: bold;
+    font-size: 16px;
+}
+
+/* INFO */
+.info {
+    flex: 1;
+}
+
+.username {
+    font-weight: 600;
+}
+
+.status {
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* RIGHT ICON */
+.icon {
+    color: #9ca3af;
+}
+
+/* BADGE (UNREAD) */
+.badge {
+    position: absolute;
+    right: 40px;
+
+    background: #2563eb;
+    color: white;
+
+    padding: 3px 8px;
+    border-radius: 20px;
+
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* EMPTY STATE */
+.empty {
+    text-align: center;
+    margin-top: 50px;
+
+    color: #9ca3af;
+    font-size: 16px;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 500px) {
+    body {
+        padding: 15px;
+    }
+}

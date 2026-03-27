@@ -1,0 +1,229 @@
+:root {
+    --primary: #2563eb;
+    --secondary: #60a5fa;
+    --danger: #ef4444;
+    --text-dark: #1f2937;
+    --text-light: #6b7280;
+}
+
+/* BODY */
+body {
+    font-family: 'Poppins', sans-serif;
+
+    /* SAME creamy background */
+    background: linear-gradient(135deg, #fdfbfb, #ebedee, #dbeafe);
+
+    margin: 0;
+    padding: 20px;
+}
+
+/* BACK BUTTON */
+.back-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start; /* 🔥 Left fix */
+}
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 500;
+
+    margin-bottom: 15px;
+
+    /* 🔥 Force left alignment */
+    justify-content: flex-start;
+}
+
+
+.back-btn:hover {
+    transform: translateX(-5px);
+}
+
+/* PROFILE CARD */
+.profile-section {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(15px);
+
+    padding: 30px 20px;
+    border-radius: 20px;
+    text-align: center;
+
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    margin-bottom: 25px;
+}
+
+/* PROFILE IMAGE */
+.profile-img-wrapper {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    margin: 0 auto 15px;
+
+    overflow: hidden;
+
+    border: 3px solid rgba(37, 99, 235, 0.3);
+    box-shadow: 0 5px 20px rgba(37, 99, 235, 0.2);
+}
+
+.profile-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* TEXT */
+.profile-section h2 {
+    margin: 10px 0 5px;
+    font-size: 22px;
+
+    background: linear-gradient(to right, #2563eb, #60a5fa);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+}
+
+.profile-section p {
+    color: var(--text-light);
+    font-size: 14px;
+}
+
+/* MENU */
+.menu-container {
+    max-width: 500px;
+    margin: auto;
+}
+
+/* MENU ITEM */
+.menu-item {
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+
+    display: flex;
+    align-items: center;
+
+    padding: 15px;
+    border-radius: 16px;
+
+    margin-bottom: 15px;
+    text-decoration: none;
+    color: var(--text-dark);
+
+    transition: 0.3s;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+}
+
+.menu-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.15);
+}
+
+/* ICON */
+.menu-item i:first-child {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border-radius: 12px;
+
+    background: linear-gradient(135deg, #2563eb, #60a5fa);
+    color: white;
+
+    margin-right: 12px;
+}
+
+/* TEXT */
+.menu-item span {
+    flex: 1;
+    font-weight: 500;
+}
+
+/* ARROW */
+.arrow-right {
+    color: #aaa;
+}
+
+/* LOGOUT */
+.logout-btn {
+    width: 100%;
+    border: none;
+
+    padding: 14px;
+    border-radius: 14px;
+
+    font-weight: 600;
+    cursor: pointer;
+
+    background: rgba(255, 0, 0, 0.05);
+    color: var(--danger);
+
+    transition: 0.3s;
+}
+
+.logout-btn:hover {
+    background: var(--danger);
+    color: white;
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+}
+
+/* GUEST */
+.guest-card {
+    text-align: center;
+
+    background: rgba(255,255,255,0.7);
+    backdrop-filter: blur(15px);
+
+    padding: 40px;
+    border-radius: 20px;
+
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* BUTTONS */
+.btn-primary {
+    display: inline-block;
+
+    background: linear-gradient(to right, #2563eb, #60a5fa);
+    color: white;
+
+    padding: 12px 30px;
+    border-radius: 12px;
+
+    text-decoration: none;
+    margin-top: 10px;
+
+    transition: 0.3s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.3);
+}
+
+.btn-outline {
+    display: inline-block;
+
+    border: 2px solid var(--primary);
+    color: var(--primary);
+
+    padding: 10px 25px;
+    border-radius: 12px;
+
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+/* MOBILE */
+@media(max-width: 500px){
+    body {
+        padding: 15px;
+    }
+}

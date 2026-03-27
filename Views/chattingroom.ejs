@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat Room</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/chattingroom.css">
+</head>
+
+<body>
+
+<div class="chat-container">
+
+  <!-- HEADER -->
+  <div class="chat-header">
+    <div class="back-btn" onclick="history.back()">⬅</div>
+
+
+    <div class="user-info">
+      <img class="avatar"
+        src="<%= receiver.ProductImage ? '/uploads/' + receiver.ProductImage : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' %>" 
+        alt="Profile"
+      >
+
+      <div class="user-meta">
+        <div class="user-name"><%= receiverName || 'User' %></div>
+        <div class="status" id="status">Offline</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MESSAGES -->
+   
+  <div id="messages" class="messages">
+    <% messages.forEach(msg => { %>
+      <div class="message <%= msg.sender.toString() === user._id.toString() ? 'self' : 'other' %>">
+        <%= msg.text %>
+      </div>
+    <% }) %>
+  </div>
+
+  <!-- INPUT -->
+  <form id="form" class="chat-input">
+    <input id="input" autocomplete="off" placeholder="Type a message..." />
+    <button type="submit">➤</button>
+  </form>
+
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+
+<script>
+  const socket = io();
+
+  const userId = "<%= user._id %>";
+  const receiverId = "<%= receiverId %>";
+
+  const messages = document.getElementById('messages');
+  const form = document.getElementById('form');
+  const input = document.getElementById('input');
+  const statusText = document.getElementById('status');
+
+
+  socket.emit("join_room", { senderId: userId, receiverId });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    if (input.value.trim() !== '') {
+      socket.emit("send_message", {
+        senderId: userId,
+        receiverId,
+        text: input.value
+      });
+
+      input.value = '';
+    }
+  });
+
+  socket.on("receive_message", (data) => {
+    const item = document.createElement('div');
+    item.classList.add('message');
+
+    item.textContent = data.text;
+
+    if (data.senderId === userId) {
+      item.classList.add('self');
+    } else {
+      item.classList.add('other');
+    }
+
+    messages.appendChild(item);
+    messages.scrollTop = messages.scrollHeight;
+  });
+
+  socket.on("user_online", () => {
+    statusText.textContent = "Online";
+  });
+
+  socket.on("user_offline", () => {
+    statusText.textContent = "Offline";
+  });
+</script>
+
+</body>
+</html>

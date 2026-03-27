@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Account | IGEC Shop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="account.css">
+</head>
+<body>
+
+    <% if(isLoggedIn) { %>
+        <div class="profile-section">
+           <div class="back-wrapper">
+    <a href="/" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back
+    </a>
+</div>
+
+          <a href="/changeprofilepic">  <div class="profile-img-wrapper">
+               <img 
+  src="<%= user.ProductImage ? '/uploads/' + user.ProductImage : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' %>" 
+  alt="Profile"
+>
+            </div></a>
+            <h2>Welcome, <%= user.username %>!</h2>
+            <p><i class="fa-regular fa-envelope"></i> <%= user.email %></p>
+        </div>
+
+        <div class="menu-container">
+            <a href="/changeuser" class="menu-item">
+                <i class="fa-solid fa-wallet"></i>
+                <span>Change Username</span>
+                <i class="fa-solid fa-chevron-right arrow-right"></i>
+            </a>
+             <a href="/changepass" class="menu-item">
+                <i class="fa-solid fa-key"></i>
+                <span>Change Password</span>
+                <i class="fa-solid fa-chevron-right arrow-right"></i>
+            </a>
+
+            <a href="/reportbug" class="menu-item">
+                <i class="fa-solid fa-box-open"></i>
+                <span>Report Bug</span>
+                <i class="fa-solid fa-chevron-right arrow-right"></i>
+            </a>
+
+           
+
+            <form action="/logout" method="POST" class="logout-form">
+                <button type="submit" class="logout-btn">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </button>
+            </form>
+        </div>
+
+    <% } else { %>
+        <div class="guest-card">
+            <i class="fa-solid fa-circle-user"></i>
+            <h1>Please Login First</h1>
+            <p style="color: #777; margin-bottom: 25px;">Login to make friends and chatting.</p>
+            
+            <a href="/login" class="btn-primary">Login Now</a>
+            <p style="margin: 15px 0 5px; font-size: 14px; color: #888;">Don't have an account?</p>
+            <a href="/signup" class="btn-outline">Sign Up</a>
+            
+            <br><br>
+            <a href="/" style="color: #888; text-decoration: none; font-size: 14px;">
+                <i class="fa-solid fa-arrow-left"></i> Back To Home
+            </a>
+        </div>
+    <% } %>
+
+</body>
+</html>

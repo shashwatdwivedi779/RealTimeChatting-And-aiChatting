@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Friends</title>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link rel="stylesheet" href="/chatting.css">
+
+</head>
+<body>
+
+<div class="navbar">
+    💬 Your Friends
+</div>
+<a href="/" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back to Setting
+    </a>
+<div class="container">
+
+<% if (current && current.length > 0) { %>
+
+    <% current.forEach(userItem => { %>
+
+        <a href="/chattingroom/<%= userItem._id %>" class="friend-item">
+
+              <img class="avatar"
+  src="<%= userItem.ProductImage ? '/uploads/' + userItem.ProductImage : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' %>" 
+  alt="Profile"
+>
+            
+            <div class="info">
+                <div class="username"><%= userItem.username %></div>
+                <div class="status">Tap to chat</div>
+            </div>
+<% if (userItem.unseenCount > 0) { %>
+  <div class="badge">
+    <%= userItem.unseenCount %>
+  </div>
+<% } %>
+
+            <span class="material-icons icon">chevron_right</span>
+
+        </a>
+
+
+    <% }) %>
+
+<% } else { %>
+
+    <div class="empty">
+        😢 No Friends Yet
+    </div>
+
+<% } %>
+
+</div>
+<a href="/chatting" 
+   style="
+     display: inline-block;
+     padding: 10px 18px;
+     border-radius: 20px;
+     background: linear-gradient(to right, #2563eb, #60a5fa);
+     color: white;
+     text-decoration: none;
+     font-size: 14px;
+     font-weight: 500;
+     box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
+     transition: 0.3s ease;
+   "
+   onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 18px rgba(37,99,235,0.35)'"
+   onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 12px rgba(37,99,235,0.25)'"
+>
+  🔄 Refresh
+</a>
+</body>
+</html>

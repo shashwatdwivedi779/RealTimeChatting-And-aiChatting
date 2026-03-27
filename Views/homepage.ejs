@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+
+    <!-- Google Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/homepage.css">
+
+</head>
+<body>
+
+<nav>
+    <div class="logo">MySocial</div>
+
+    <div class="links">
+        <a href="/notification">
+            <span class="material-icons">notifications</span>
+            Requests
+            <% if(currentUser){ %>
+                <span><%= currentUser.FriendRequest.length %></span>
+            <% } %>
+        </a>
+
+        <a href="/chatting">
+            Chats
+        </a>
+
+        <a href="/profile">
+            Profile
+        </a>
+    </div>
+</nav>
+
+<% if(!isLoggedIn){ %>
+
+<h1>SignUp or Login Your Account</h1>
+
+<div class="card-container">
+
+    <div class="card">
+        <img src="https://img.nowrunning.com/content/Artist/Tamanna/stills/tamannaahbhatia_202573.jpg">
+        <h3>Tamanna Bhatiya</h3>
+        <a href="/login" class="rishi"><span class="material-icons">person_add</span>
+            Add Friend</a>
+    </div>
+
+    <div class="card">
+        <img src="https://www.orissapost.com/wp-content/uploads/2020/06/always-considered-myself-as-underdog-arjun-kapoor-2019-05-02.jpg">
+        <h3>Arjun Kapoor</h3>
+        <a href="/login" class="rishi"><span class="material-icons">person_add</span>
+            Add Friend</a>
+    </div>
+    <div class="card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQaPfV9CPtheqFV3TXw2JklbgbL5sZG_Z3qiw&s">
+        <h3>Riya Chaturvedi</h3>
+        <a href="/login" class="rishi"><span class="material-icons">person_add</span>
+            Add Friend</a>
+    </div>
+    <div class="card">
+        <img src="https://s7d1.scene7.com/is/image/wbcollab/Ravi-Shankar-Chaturvedi220x220?qlt=90&fmt=webp&resMode=sharp2">
+        <h3>Ravi Ahirwar</h3>
+        <a href="/login" class="rishi"><span class="material-icons">person_add</span>
+            Add Friend</a>
+    </div>
+    <div class="card">
+        <img src="https://up.bjp.org/filesup/SPG-image/yogi_1.jpg">
+        <h3>BJP Supporter</h3>
+        <a href="/login" class="rishi"><span class="material-icons">person_add</span>
+            Add Friend</a>
+    </div>
+    <div class="card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQDqq58osq2ht0RgRS32vnwXfRNexwS1jp-Sg&s">
+        <h3>Nimit Thakur</h3>
+        <a href="/login" class="rishi"><span class="material-icons">person_add</span>
+            Add Friend</a>
+    </div>
+    
+    <div class="card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy7e1Y5yAcbSpCMy30a9_iIUj0cD9KlX9Dqg&s">
+        <h3>Anshika Dikshit</h3>
+        <a href="/login" class="rishi"><span class="material-icons">person_add</span>
+            Add Friend</a>
+    </div>
+
+</div>
+
+<% } else { %>
+
+<h1>✨ Make Friends and Enjoy</h1>
+
+<div class="card-container">
+
+<% if (Users && Users.length > 0) { 
+    Users.forEach(userItem => { 
+
+    // ❌ skip self
+    if (userItem._id.toString() === currentUser._id.toString()) return;
+
+    // ❌ skip already friends
+    if (currentUser.Friends.some(id => id.toString() === userItem._id.toString())) return;
+
+    // ❌ skip already requested
+    if (currentUser.FriendRequest.some(id => id.toString() === userItem._id.toString())) return;
+%>
+
+<div class="card">
+       <img 
+  src="<%= userItem.ProductImage ? '/uploads/' + userItem.ProductImage : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' %>" 
+  alt="Profile"
+>
+    <h3><%= userItem.username %></h3>
+
+    <form action="/friends" method="POST">
+        <input type="hidden" value="<%= userItem._id %>" name="userid">
+
+        <button type="submit">
+            <span class="material-icons">person_add</span>
+            Add Friend
+        </button>
+    </form>
+</div>
+
+<% }) } else { %>
+
+<h1>No Users Available</h1>
+
+<% } %>
+
+</div>
+
+<% } %>
+
+<a href="/aiChatting" class="ai-float-btn">
+    <span class="material-icons ai-icon">smart_toy</span>
+    <span class="ai-text">Chat with AI</span>
+</a>
+
+</body>
+</html>

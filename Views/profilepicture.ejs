@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload Profile Picture</title>
+
+  <!-- Cropper CSS -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css"
+  />
+<link rel="stylesheet" href="/profilepic.css">
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="top-badge">Profile Setup</div>
+
+      <h1 class="title">Upload Your <span>Profile Picture</span></h1>
+      <p class="subtitle">
+        Choose a clean and professional image. You can drag & drop, select from
+        your device, and crop it before submitting.
+      </p>
+
+      <form action="/profilepic" method="POST" enctype="multipart/form-data">
+        <input
+          type="file"
+          id="fileInput"
+          name="ProductImage"
+          accept="image/*"
+          style="display: none;"
+        />
+
+        <div class="drop-zone" id="drop-zone">
+          <div class="upload-icon">☁</div>
+          <h3>Drag & Drop your image here</h3>
+          <p>
+            or <strong>Click to Select</strong><br />
+            JPG, PNG, WEBP supported
+          </p>
+        </div>
+
+        <div class="preview-container" id="preview-container">
+          <div class="preview-label">Preview</div>
+          <div class="preview-box">
+            <img id="preview" src="" alt="Preview Image" />
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button type="submit" class="btn btn-primary">Upload Picture</button>
+          <button type="button" class="btn btn-secondary" id="change-image">
+            Choose Another
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Cropper Modal -->
+  <div class="modal" id="cropper-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Crop Your Image</h2>
+        <p>
+          Adjust your profile picture and keep it centered. Square crop is set
+          for a cleaner profile look.
+        </p>
+      </div>
+
+      <div class="crop-area">
+        <img id="image-to-crop" src="" alt="Image to Crop" />
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn btn-secondary" id="cancel-crop">
+          Cancel
+        </button>
+        <button type="button" class="btn btn-primary" id="apply-crop">
+          Apply Crop
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cropper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+  <script>
+    const fileInput = document.getElementById("fileInput");
+    const dropZone = document.getElementById("drop-zone");
+    const previewContainer = document.getElementById("preview-container");
+    const previewImg = document.getElementById("preview");
+
+    const modal = document.getElementById("cropper-modal");
+    const imageToCrop = document.getElementById("image-to-crop");
+    const applyCropBtn = document.getElementById("apply-crop");
+    const cancelCropBtn = document.getElementById("cancel-crop");
+    const changeImageBtn = document.getElementById("change-image");
+
+    let cropper;
+
+    // Click upload area
+    dropZone.addEventListener("click", () => fileInput.click());
+    changeImageBtn.addEventListener("click", () => fileInput.click());
+
+    // Drag over
+    dropZone.addEventListener("dragover", (e) => {
+      e.preventDefault();
+      dropZone.classList.add("dragover");
+    });
+
+    // Drag leave
+    dropZone.addEventListener("dragleave", () => {
+      dropZone.classList.remove("dragover");
+    });
+
+    // Drop file
+    dropZone.addEventListener("drop", (e) => {
+      e.preventDefault();
+      dropZone.classList.remove("dragover");
+
+      if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+        handleFile(e.dataTransfer.files[0]);
+      }
+    });
+
+    // Normal file input
+    fileInput.addEventListener("change", (e) => {
+      if (e.target.files && e.target.files.length > 0) {
+        handleFile(e.target.files[0]);
+      }
+    });
+
+    function handleFile(file) {
+      if (!file.type.startsWith("image/")) {
+        alert("Please upload a valid image file.");
+        return;
+      }
+
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        imageToCrop.src = e.target.result;
+        modal.style.display = "flex";
+
+        if (cropper) {
+          cropper.destroy();
+        }
+
+        cropper = new Cropper(imageToCrop, {
+          aspectRatio: 1,
+          viewMode: 1,
+          dragMode: "move",
+          background: false,
+          autoCropArea: 1,
+          responsive: true,
+          movable: true,
+          zoomable: true,
+          scalable: false,
+          rotatable: false,
+        });
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    applyCropBtn.addEventListener("click", () => {
+      if (!cropper) return;
+
+      const canvas = cropper.getCroppedCanvas({
+        width: 500,
+        height: 500,
+        imageSmoothingEnabled: true,
+        imageSmoothingQuality: "high",
+      });
+
+      canvas.toBlob((blob) => {
+        const croppedImageUrl = URL.createObjectURL(blob);
+        previewImg.src = croppedImageUrl;
+        previewContainer.style.display = "block";
+
+        const croppedFile = new File([blob], "profile_picture.jpg", {
+          type: "image/jpeg",
+        });
+
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(croppedFile);
+        fileInput.files = dataTransfer.files;
+
+        modal.style.display = "none";
+      }, "image/jpeg", 0.95);
+    });
+
+    cancelCropBtn.addEventListener("click", () => {
+      modal.style.display = "none";
+      if (cropper) {
+        cropper.destroy();
+        cropper = null;
+      }
+      fileInput.value = "";
+    });
+
+    // Optional: click outside modal to close
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+        if (cropper) {
+          cropper.destroy();
+          cropper = null;
+        }
+      }
+    });
+  </script>
+</body>
+</html>
