@@ -22,7 +22,7 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-const DB_URI = "mongodb://localhost:27017/SecondDB"
+const DB_URI = process.env.DB_URL;
 
 // ================= MIDDLEWARE =================
 app.use(cookieParser());
@@ -176,7 +176,7 @@ io.on('connection', (socket) => {
   // -------- User To AI -----------
 
    const groq = new Groq({
-  apiKey: "Mai Nahi Dikhaunga"
+  apiKey: process.env.AI_KEY
 });
 
 
