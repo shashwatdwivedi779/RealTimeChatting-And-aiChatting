@@ -297,7 +297,7 @@ exports.PostLogout = (req, res) => {
 }
 
 exports.GetBugs = (req, res) => {
-    res.render('bugs');
+    res.render('Bugs');
 }
 
 exports.PostBugs = async (req, res) => {
