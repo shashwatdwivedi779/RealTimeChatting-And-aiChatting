@@ -166,7 +166,7 @@ exports.PostFriends = async (req, res) => {
             userdata.FriendRequest.push(req.userId);
             await userdata.save();
         }
-        res.render('Success', { Message: 'Friend Request Send', Back: '/'});
+        res.render('success', { Message: 'Friend Request Send', Back: '/'});
     } catch(err){
         console.log(err);
         res.redirect('/');
@@ -263,7 +263,7 @@ exports.PostChangepass = [
    await UserSchema.findByIdAndUpdate(req.userId,{
         password: finalpass
    });
-   res.render('Success', { Message: 'Password Changed', Back: '/profile'});
+   res.render('success', { Message: 'Password Changed', Back: '/profile'});
 } catch(err){
     console.log(err);
     res.status(500).send("Something went wrong");
@@ -284,7 +284,7 @@ exports.PostChangeuser = async (req, res) => {
    await UserSchema.findByIdAndUpdate(req.userId,{
         username: newuser
    });
-   res.render('Success', { Message: ' UserName Changed ', Back: '/profile'});
+   res.render('success', { Message: ' UserName Changed ', Back: '/profile'});
 } catch(err){
     console.log(err);
     res.status(500).send("Something went wrong");
@@ -305,7 +305,7 @@ exports.PostBugs = async (req, res) => {
     const user = await UserSchema.findById(req.userId);
     user.Bugs.push(bugs);
     await user.save();
-    res.render('Success', { Message: 'Submitted Bugs', Back: '/profile'});
+    res.render('success', { Message: 'Submitted Bugs', Back: '/profile'});
 }
 
 
