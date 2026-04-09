@@ -47,7 +47,7 @@ exports.PostLogin = async (req, res) => {
         userId: usermail._id,
         username: usermail.username,
         email: usermail.email
-    }, "KAISE_HO_BHAII_SAB_THIK_HAI_NA", { expiresIn: '100h' });
+    }, process.env.KEY, { expiresIn: '100h' });
     res.cookie('token', token, {httpOnly: true});
     res.redirect('/');
 }
