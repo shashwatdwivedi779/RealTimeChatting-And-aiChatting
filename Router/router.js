@@ -24,6 +24,7 @@ home.get('/reportbug', controller.GetBugs);
 home.post('/reportbug', controller.PostBugs);
 home.get('/changeprofilepic', controller.GetProfilepic);
 home.post('/profilepic', uploadd.single('ProductImage'), controller.PostProfilepic);
+home.post('/search', controller.PostSearch);
 
 
 
