@@ -34,6 +34,31 @@
     </div>
 </nav>
 
+
+<div class="search-wrapper">
+    <form action="/search" method="POST" class="search-form">
+        <div class="search-input-wrap">
+            <span class="material-icons search-icon">search</span>
+            <input 
+                type="text" 
+                name="search" 
+                value="<%= OldInput ? OldInput : '' %>" 
+                placeholder="Search friends by username..."
+            >
+        </div>
+
+        <button type="submit">
+            <span class="material-icons">travel_explore</span>
+            Search
+        </button>
+    </form>
+
+    <p class="search-hint">Find new friends and connect instantly.</p>
+</div>
+
+
+</form>
+
 <% if(!isLoggedIn){ %>
 
 <h1>SignUp or Login Your Account</h1>
@@ -137,6 +162,7 @@
     <span class="material-icons ai-icon">smart_toy</span>
     <span class="ai-text">Chat with AI</span>
 </a>
+
 
 <%- include('futter') %>
 </body>
