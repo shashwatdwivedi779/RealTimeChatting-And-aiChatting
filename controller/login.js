@@ -5,7 +5,7 @@ const { check, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const fs = require('fs').promises;
 const path = require('path');
-
+const Fuse = require('fuse.js');
 
 
 exports.GetHome = async (req, res) => {
@@ -13,7 +13,8 @@ exports.GetHome = async (req, res) => {
     const currentUser = await UserSchema.findById(req.userId);
     res.render('homepage', { 
         Users,
-        currentUser
+        currentUser,
+        OldInput: ''
     });
 }
 
@@ -46,7 +47,7 @@ exports.PostLogin = async (req, res) => {
         userId: usermail._id,
         username: usermail.username,
         email: usermail.email
-    }, process.env.KEY, { expiresIn: '100h' });
+    }, "KAISE_HO_BHAII_SAB_THIK_HAI_NA", { expiresIn: '100h' });
     res.cookie('token', token, {httpOnly: true});
     res.redirect('/');
 }
@@ -166,7 +167,7 @@ exports.PostFriends = async (req, res) => {
             userdata.FriendRequest.push(req.userId);
             await userdata.save();
         }
-        res.render('success', { Message: 'Friend Request Send', Back: '/'});
+        res.render('Success', { Message: 'Friend Request Send', Back: '/'});
     } catch(err){
         console.log(err);
         res.redirect('/');
@@ -263,7 +264,7 @@ exports.PostChangepass = [
    await UserSchema.findByIdAndUpdate(req.userId,{
         password: finalpass
    });
-   res.render('success', { Message: 'Password Changed', Back: '/profile'});
+   res.render('Success', { Message: 'Password Changed', Back: '/profile'});
 } catch(err){
     console.log(err);
     res.status(500).send("Something went wrong");
@@ -284,7 +285,7 @@ exports.PostChangeuser = async (req, res) => {
    await UserSchema.findByIdAndUpdate(req.userId,{
         username: newuser
    });
-   res.render('success', { Message: ' UserName Changed ', Back: '/profile'});
+   res.render('Success', { Message: ' UserName Changed ', Back: '/profile'});
 } catch(err){
     console.log(err);
     res.status(500).send("Something went wrong");
@@ -305,7 +306,7 @@ exports.PostBugs = async (req, res) => {
     const user = await UserSchema.findById(req.userId);
     user.Bugs.push(bugs);
     await user.save();
-    res.render('success', { Message: 'Submitted Bugs', Back: '/profile'});
+    res.render('Success', { Message: 'Submitted Bugs', Back: '/profile'});
 }
 
 
@@ -363,6 +364,7 @@ exports.PostProfilepic = async (req, res) => {
     }
 };
 
+
 exports.PostSearch = async (req, res) => {
     try{
     const SearchName = req.body.search ;
@@ -396,4 +398,3 @@ exports.PostSearch = async (req, res) => {
     }
 
 }
-
