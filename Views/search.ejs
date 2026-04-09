@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Searching Friends</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <link rel="stylesheet" href="/search.css">
+</head>
+<body>
+
+     <a href="/" class="back-btn">
+        <i class="fa-solid fa-arrow-left"></i> Back
+    </a>  
+
+
+    <div class="page-wrapper">
+
+        <div class="top-section">
+            <h1>✨ Make Friends and Enjoy</h1>
+            <p>Search new people and send friend requests instantly.</p>
+        </div>
+
+        <div class="search-wrapper">
+            <form action="/search" method="POST" class="search-form">
+                <div class="search-input-box">
+                    <span class="material-icons search-icon">search</span>
+                    <input 
+                        type="text" 
+                        name="search" 
+                        value="<%= OldInput ? OldInput : '' %>" 
+                        placeholder="Search Friend"
+                    >
+                </div>
+
+                <button type="submit" class="search-btn">
+                    <span class="material-icons">travel_explore</span>
+                    Search
+                </button>
+            </form>
+        </div>
+
+        <div class="results-head">
+            <% if (result && result.length > 0) { %>
+                <h2>Search Results</h2>
+            <% } else { %>
+                <h2>No Matching Friends Found</h2>
+            <% } %>
+        </div>
+
+        <div class="card-container">
+            <% if (result && result.length > 0) { %>
+                <% result.forEach(userItem => { %>
+
+                    <div class="card">
+                        <div class="profile-ring">
+                            <img 
+                                src="<%= userItem.ProductImage ? '/uploads/' + userItem.ProductImage : 'https://cdn-icons-png.flaticon.com/512/3135/3135715.png' %>" 
+                                alt="Profile"
+                            >
+                        </div>
+
+                        <h3><%= userItem.username %></h3>
+                        <p class="user-tag">@<%= userItem.username.toLowerCase().replace(/\s+/g, '') %></p>
+
+                        <form action="/friends" method="POST" class="add-friend-form">
+                            <input type="hidden" value="<%= userItem._id %>" name="userid">
+                            <button type="submit" class="add-btn">
+                                <span class="material-icons">person_add</span>
+                                Add Friend
+                            </button>
+                        </form>
+                    </div>
+
+                <% }) %>
+            <% } else { %>
+
+                <div class="empty-state">
+                    <div class="empty-icon">
+                        <span class="material-icons">group_off</span>
+                    </div>
+                    <h3>No Users Available</h3>
+                    <p>Try searching with a different username.</p>
+                </div>
+
+            <% } %>
+        </div>
+
+    </div>
+
+</body>
+</html>
