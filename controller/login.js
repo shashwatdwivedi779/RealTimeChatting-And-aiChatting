@@ -362,3 +362,38 @@ exports.PostProfilepic = async (req, res) => {
         return res.status(500).send('Server error');
     }
 };
+
+exports.PostSearch = async (req, res) => {
+    try{
+    const SearchName = req.body.search ;
+    const currentUser = req.userId;
+
+    const AllUsers = await UserSchema.find( {}, {
+        username: 1,
+        email: 1,
+        ProductImage: 1
+    }).lean();
+
+    const fuse = new Fuse( AllUsers, {
+        keys: [
+            {name: 'username', weight: 1}
+        ],
+        includeScore: true,
+        threshold: 0.4,
+        ignoreLocation: true,
+        minMatchCharLength: 3
+    })
+
+    const Names = fuse.search(SearchName);
+    const result = Names.map(name => name.item);
+
+    res.render('search', {
+        result, OldInput: SearchName, currentUser
+    })
+
+    } catch(err){
+        console.log(err);
+    }
+
+}
+
